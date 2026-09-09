@@ -1,0 +1,1348 @@
+/* =========================================
+   Design tokens (from Figma)
+   ========================================= */
+:root {
+  --color-bg: #090808;
+  --color-white: #ffffff;
+  --color-text-soft: #e9e9e9;
+  --color-text-muted: #b0b0b0;
+  --color-text-faint: #707070;
+  --color-text-70: rgba(255, 255, 255, 0.68);
+  --color-border: rgba(255, 255, 255, 0.3);
+  --color-accent: #fffb7e;
+  --color-placeholder: #878787;
+
+  --font-body: "Oswald", system-ui, sans-serif;
+
+  --container-max: 1568px;
+  --side-padding: clamp(20px, 4.5vw, 80px);
+
+  --section-gap: clamp(96px, 14vw, 224px);
+
+  /* Shared horizontal indent so the header email, hero text block, and the
+     second hero-footer column all line up on the same left edge. */
+  --content-indent: clamp(0px, 36vw, 622px);
+}
+
+/* =========================================
+   Reset
+   ========================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Lenis (loaded in index.html) now owns smooth scrolling, including
+   anchor-link jumps — leaving scroll-behavior:smooth here too would double
+   up: the browser would also try to smooth Lenis's own per-frame scroll
+   position updates, making the motion lag and stutter. */
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* shared section rhythm */
+main > section {
+  padding: 0 var(--side-padding);
+  max-width: 1728px;
+  margin: 0 auto;
+}
+
+main > section + section {
+  margin-top: var(--section-gap);
+}
+
+.section-title,
+.services-title,
+.projects-title {
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* =========================================
+   Header
+   ========================================= */
+.site-header {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 32px var(--side-padding) 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 60px);
+  flex-wrap: wrap;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  padding: 8px;
+  font-weight: 300;
+  font-size: 16px;
+  color: var(--color-white);
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-accent);
+}
+
+.nav-link.is-active {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.header-right {
+  display: flex;
+  align-items: flex-start;
+}
+
+.header-email {
+  position: absolute;
+  left: calc(var(--side-padding) + var(--content-indent));
+  top: 40px;
+  color: var(--color-accent);
+  font-weight: 300;
+  font-size: 16px;
+  padding: 8px 0;
+  white-space: nowrap;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+/* Hamburger toggle — hidden above the mobile breakpoint, where nav/email/
+   socials show inline as normal header items instead. */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-white);
+  transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.menu-toggle:hover .menu-toggle-bar {
+  background: var(--color-accent);
+}
+
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-toggle-bar {
+    transition: none;
+  }
+}
+
+/* =========================================
+   Hero
+   ========================================= */
+.hero {
+  padding-top: clamp(8px, 1.5vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+.hero-content {
+  align-self: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-left: var(--content-indent);
+  gap: 56px;
+}
+
+.hero-copy {
+  max-width: min(549px, 38vw);
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  font-weight: 400;
+  font-size: clamp(32px, 4.2vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hero-copy p {
+  font-weight: 200;
+  font-size: 18px;
+  color: var(--color-text-soft);
+  text-align: justify;
+  max-width: 282px;
+}
+
+.contact-badge {
+  flex-shrink: 0;
+  width: clamp(120px, 12vw, 186px);
+  height: clamp(120px, 12vw, 186px);
+  margin-bottom: 80px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: clamp(18px, 2vw, 24px);
+  text-decoration: underline;
+  transition: transform 0.2s ease;
+}
+
+.contact-badge:hover {
+  transform: scale(1.05);
+}
+
+.hero-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hero-footer-text {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  font-weight: 200;
+  font-size: 16px;
+  color: var(--color-text-soft);
+}
+
+.hero-footer-text p:first-child {
+  width: 186px;
+}
+
+.hero-footer-text .indent-align {
+  position: absolute;
+  left: var(--content-indent);
+  top: 0;
+  width: 172px;
+}
+
+.hero-footer-text .align-right {
+  width: 134px;
+  text-align: right;
+  margin-left: auto;
+}
+
+/* Suppressed everywhere except mobile, where each line's wrap point needs
+   to be guaranteed regardless of viewport width (natural wrapping alone
+   isn't reliable across the full mobile range — see the mobile override). */
+.mobile-line-break {
+  display: none;
+}
+
+.hero-banner {
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================
+   Intro
+   ========================================= */
+.intro-heading {
+  font-weight: 400;
+  font-size: 54px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(48px, 8vw, 96px);
+}
+
+.intro-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.intro-logo {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-secondary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-left: calc(var(--content-indent) - 40px);
+}
+
+.intro-photo {
+  height: 140px;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: bottom;
+  flex-shrink: 0;
+}
+
+.intro-copy {
+  width: 460px;
+  max-width: 100%;
+  font-weight: 200;
+  font-size: clamp(18px, 1.6vw, 28px);
+  line-height: 1.3;
+  text-align: justify;
+  color: var(--color-text-soft);
+}
+
+/* =========================================
+   How I Work
+   ========================================= */
+.how-i-work {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(48px, 6vw, 96px);
+  justify-content: space-between;
+}
+
+.how-i-work-left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(80px, 12vw, 204px);
+  max-width: 347px;
+}
+
+.how-i-work-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section-title {
+  font-size: clamp(48px, 7vw, 133px);
+}
+
+.section-lede {
+  font-weight: 200;
+  font-size: 20px;
+  color: var(--color-text-70);
+}
+
+.process-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  font-size: 18px;
+  max-width: 226px;
+}
+
+.process-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.process-label {
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.process-lines {
+  color: var(--color-text-muted);
+  font-weight: 200;
+  line-height: 1.3;
+}
+
+.how-i-work-right {
+  flex: 1;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 6vw, 132px);
+}
+
+.how-i-work-statement {
+  font-weight: 200;
+  font-size: clamp(24px, 3vw, 48px);
+  line-height: 1.2;
+}
+
+.how-i-work-photo {
+  margin-top: auto;
+  width: 100%;
+  height: clamp(220px, 32vw, 488px);
+  object-fit: cover;
+  object-position: bottom;
+}
+
+/* =========================================
+   Services / How I help products grow
+   ========================================= */
+.services-title {
+  font-size: clamp(48px, 7vw, 133px);
+  width: 100%;
+  margin-bottom: clamp(32px, 5vw, 72px);
+}
+
+.service-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: clamp(32px, 5vw, 72px);
+}
+
+.service-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 0;
+  border-bottom: 0.5px solid var(--color-border);
+}
+
+.service-row-head {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.service-index {
+  color: var(--color-accent);
+  min-width: 40px;
+}
+
+.service-name {
+  font-weight: 400;
+}
+
+.service-desc {
+  flex: 1;
+  min-width: 0;
+  font-weight: 300;
+  font-size: 20px;
+  color: var(--color-text-70);
+  max-width: 420px;
+  text-align: right;
+}
+
+.services-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.services-footer-title {
+  font-weight: 400;
+  font-size: clamp(32px, 4vw, 56px);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.services-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  font-size: 18px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-label {
+  color: var(--color-text-soft);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.meta-label--accent {
+  color: var(--color-accent);
+}
+
+.meta-value {
+  color: var(--color-text-muted);
+  font-weight: 200;
+}
+
+/* =========================================
+   Selected Projects
+   ========================================= */
+.projects-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(48px, 6vw, 96px);
+}
+
+.projects-left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 8vw, 96px);
+}
+
+.projects-title {
+  font-size: clamp(48px, 7vw, 133px);
+  text-transform: uppercase;
+  width: min-content;
+}
+
+.project-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  max-width: 275px;
+}
+
+.project-names {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 64px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.project-names .is-active {
+  color: var(--color-accent);
+}
+
+.project-names li:not(.is-active) {
+  color: var(--color-text-faint);
+}
+
+.project-nav {
+  margin-top: auto;
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text-soft);
+}
+
+.project-nav-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.project-nav-btn:hover {
+  color: var(--color-accent);
+}
+
+.projects-right {
+  flex: 1;
+  min-width: 300px;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(32px, 5vw, 64px);
+}
+
+.project-images-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 300;
+  font-size: 18px;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.project-images-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.project-images-row img {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+.project-case {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.project-case-copy {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+
+.project-case-copy h3 {
+  margin: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.project-case-copy p {
+  margin-top: 16px;
+  color: var(--color-text-70);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.3;
+  /* Reserves room for the longest description (4 lines) across every
+     project so switching tabs never grows or shrinks this block — shorter
+     (3-line) descriptions just leave blank space below instead of pulling
+     the rest of the layout up. */
+  min-height: calc(1.3em * 4);
+}
+
+.project-case-meta {
+  display: flex;
+  gap: 32px;
+  font-size: 18px;
+}
+
+.case-study-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.case-study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.case-study-link.is-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.case-study-note {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--color-text-faint);
+  white-space: nowrap;
+}
+
+/* =========================================
+   Contact
+   ========================================= */
+.contact {
+  position: relative;
+}
+
+.contact-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(40px, 6vw, 96px);
+}
+
+.contact-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 373px;
+}
+
+.contact-lede {
+  color: var(--color-accent);
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 354px;
+}
+
+.field input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid var(--color-placeholder);
+  color: var(--color-white);
+  padding: 8px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.field input::placeholder {
+  color: var(--color-placeholder);
+}
+
+.field input:focus {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+
+.submit-btn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.submit-btn:hover {
+  color: var(--color-accent);
+}
+
+.contact-heading {
+  font-weight: 600;
+  font-size: clamp(36px, 5vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  max-width: 692px;
+  margin: 0;
+}
+
+.contact-graphic {
+  /* Text is pinned flush to each edge and the phone overlaps both — that
+     needs each piece positioned independently (flexbox won't allow a
+     negative/overlapping gap once both ends are pinned), so all three are
+     absolutely placed within an explicit-height container instead. */
+  --graphic-text-h: clamp(60px, 13vw, 225px);
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: clamp(80px, 12vw, 160px);
+  height: var(--graphic-text-h);
+}
+
+.contact-graphic-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+  width: auto;
+}
+
+.contact-graphic-text--1 {
+  left: 0;
+}
+
+.contact-graphic-text--2 {
+  right: 0;
+}
+
+.contact-graphic-phone {
+  /* "BUILT TO" is wider than "SCALE" (3.916x vs 2.853x its own height), so
+     the true midpoint between the two flush-edge texts isn't the container's
+     50% — it's offset by half that width difference, scaled by the shared
+     text height. */
+  position: absolute;
+  z-index: 1;
+  left: calc(50vw + (3.916 - 2.853) / 2 * var(--graphic-text-h));
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* Sized as a fixed ratio of the text height (260/225, the desktop
+     reference) rather than height + a flat constant — a pure ratio is
+     self-similar at every size, so the phone's proportion to the text
+     (and the amount it overlaps "TO"/"SCALE") looks the same at any
+     screen size instead of drifting smaller or larger than at desktop. */
+  width: calc(var(--graphic-text-h) * 1.1556);
+  height: calc(var(--graphic-text-h) * 1.1556);
+  object-fit: cover;
+  border-radius: 0;
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--section-gap);
+  padding: 64px var(--side-padding) 48px;
+  max-width: 1728px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.footer-main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 8vw, 120px);
+}
+
+.footer-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(48px, 8vw, 120px);
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-nav a {
+  padding: 8px;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.footer-nav a:hover {
+  color: var(--color-accent);
+}
+
+.footer-socials {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.footer-copyright {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  background: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.footer-decorative-logo {
+  position: absolute;
+  right: 8%;
+  bottom: 0;
+  width: 40%;
+  max-width: 699px;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+/* Below ~1120px, the hero text block + gap + button no longer fit on one
+   row at the desktop spacing (the text can only shrink so far before
+   wrapping badly), so switch to a stacked layout as the base fallback... */
+@media (max-width: 1120px) {
+  .hero-content {
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0;
+  }
+}
+
+/* ...but for tablet widths specifically, keep the button beside the text
+   like desktop — it just needs a tighter gap and a smaller button to fit. */
+@media (min-width: 641px) and (max-width: 1120px) {
+  .hero-content {
+    flex-direction: row;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    margin-left: var(--content-indent);
+    gap: clamp(20px, 3vw, 40px);
+  }
+
+  .contact-badge {
+    width: clamp(100px, 10vw, 140px);
+    height: clamp(100px, 10vw, 140px);
+    font-size: clamp(15px, 1.6vw, 20px);
+  }
+
+  /* The intro paragraph's fixed 460px width doesn't leave room for the
+     photo beside it at tablet widths, so it drops to its own row instead
+     of sitting next to the photo like desktop — narrow it to fit. */
+  .intro-copy {
+    width: min(280px, 38vw);
+  }
+
+  /* 25% smaller than the desktop 54px. */
+  .intro-heading {
+    font-size: 40.5px;
+  }
+
+  /* The photo+text group's left margin (same indent formula used to align
+     it with the hero text above) leaves too little room next to the logo
+     at tablet widths, so the whole group wraps below the logo instead of
+     sitting beside it top-aligned — cap the margin so it always fits. A
+     flat pixel cap isn't safe all the way to the bottom of the tablet
+     range (641px), where available width is tightest, so scale the cap
+     with viewport width instead. */
+  .intro-secondary {
+    margin-left: min(calc(var(--content-indent) - 40px), 17vw);
+  }
+
+  /* The "How I Work" right column's min-width (280px) plus the left
+     column's width don't fit tablet viewports, so it drops below the left
+     column instead of sitting beside it — narrow the column's floor and
+     shrink the statement text so it reads well at the narrower size. */
+  .how-i-work-right {
+    min-width: 160px;
+  }
+
+  .how-i-work-statement {
+    font-size: clamp(16px, 2.4vw, 24px);
+  }
+
+  .how-i-work-photo {
+    height: clamp(140px, 22vw, 300px);
+  }
+
+  /* Same issue in the contact section: the form column plus the heading's
+     max-width together are wider than tablet viewports, so the heading
+     drops below the form instead of sitting beside it — shrink both. */
+  .contact-copy {
+    max-width: min(373px, 45vw);
+  }
+
+  .contact-heading {
+    max-width: min(692px, 38vw);
+  }
+
+  .contact-main {
+    gap: clamp(24px, 4vw, 60px);
+  }
+}
+
+/* Tablet: the header email's position is derived from the same fluid
+   indent used elsewhere, and at these widths it collides with the nav
+   before there's room to reflow it — simplest fix is to hide it here. */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .header-email {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Collapse nav, email, and socials behind a hamburger — logo stays put
+     on the left, links/contact/socials only show once the menu is opened. */
+  .menu-toggle {
+    display: flex;
+    position: absolute;
+    top: 32px;
+    right: var(--side-padding);
+    z-index: 2;
+  }
+
+  .main-nav,
+  .header-email,
+  .header-right {
+    display: none;
+  }
+
+  /* Fixed + inset:0 takes the open panel out of document flow entirely, so
+     it overlays the page as a full-screen sheet instead of growing the
+     header's height and pushing the rest of the page down. */
+  .site-header.menu-open {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: var(--color-bg);
+    overflow-y: auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 20px;
+    padding-bottom: 32px;
+  }
+
+  .site-header.menu-open .header-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .site-header.menu-open .main-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .site-header.menu-open .header-email {
+    display: block;
+  }
+
+  .site-header.menu-open .header-right {
+    display: flex;
+  }
+
+  .site-header.menu-open .menu-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .site-header.menu-open .menu-toggle-bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .site-header.menu-open .menu-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .hero-content {
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0;
+  }
+
+  .contact-badge {
+    align-self: flex-end;
+  }
+
+  /* The 38vw cap was tuned for desktop/tablet, where the heading shares its
+     row with the button — on mobile the button stacks below instead, so the
+     heading doesn't need to share width and the cap just squeezes it into
+     one-word-per-line wrapping (38vw is ~142px on a 375px phone). */
+  .hero-copy {
+    max-width: 100%;
+    padding-top: 64px;
+    padding-bottom: 0;
+  }
+
+  .header-email {
+    position: static;
+    padding: 0 0 8px;
+  }
+
+  /* No mobile override existed for this — it inherited the flat desktop
+     54px, which at 375px wraps into 8+ short lines and pushes everything
+     else far down the page. */
+  .intro-heading {
+    font-size: 32px;
+  }
+
+  /* Order overrides the source order (logo, then photo, then copy) so the
+     photo renders first (left) and the logo last of the pair (pushed right
+     via its own auto margin) — the copy still needs the highest order so it
+     stays last and wraps to its own full-width row below both. */
+  .intro-logo {
+    width: 28px;
+    height: 28px;
+    order: 2;
+    margin-left: auto;
+  }
+
+  /* Unwrap this box so the photo becomes a direct sibling of the logo in
+     .intro-row's own wrapping flex — that's what lets the photo sit beside
+     the logo on the first row, with the text (too wide to fit alongside
+     them) wrapping to its own full-width row below. */
+  .intro-secondary {
+    display: contents;
+  }
+
+  .intro-row {
+    gap: 16px;
+  }
+
+  .intro-photo {
+    width: 100px;
+    height: 100px;
+    align-self: flex-start;
+    order: 1;
+  }
+
+  .intro-copy {
+    width: 100%;
+    flex: none;
+    font-size: 14px;
+    order: 3;
+  }
+
+  /* The 40px gap was tuned for the desktop heading (as large as 133px) —
+     at mobile's much smaller 48px heading it reads as oversized. */
+  .how-i-work-heading {
+    gap: 20px;
+  }
+
+  .how-i-work-left {
+    gap: 40px;
+  }
+
+  .how-i-work-statement {
+    font-size: 20px;
+  }
+
+  .how-i-work-photo {
+    height: 220px;
+  }
+
+  /* Keep the same three-across row desktop uses (space-between, from the
+     base rule) rather than stacking into a column — just scaled down. At
+     8px the text is small enough that the middle item's absolute-position
+     trick (pinned at --content-indent, same as desktop — that's also what
+     lines it up with the "D" in the banner below) no longer overlaps the
+     first item the way it did at the larger sizes tried earlier. */
+  .hero-footer-text {
+    font-size: 8px;
+    gap: 8px;
+  }
+
+  .hero-footer-text p:first-child,
+  .hero-footer-text .align-right {
+    width: 75px;
+  }
+
+  /* Narrower than the outer two — its widest forced half-line ("UX decisions
+     aligned with") is a few px shorter than the first item's, so it needs
+     less room, and keeping it tight is what clears the first item at the
+     narrowest phones (320px), where content-indent sits closest to it. */
+  .hero-footer-text .indent-align {
+    width: 74px;
+  }
+
+  .hero-footer-text .align-right {
+    margin-left: 0;
+  }
+
+  .header-right {
+    align-items: flex-start;
+  }
+
+  .social-links {
+    align-items: flex-start;
+  }
+
+  .service-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .service-row-head {
+    gap: 12px;
+  }
+
+  .service-index {
+    min-width: auto;
+  }
+
+  .service-desc {
+    text-align: left;
+  }
+
+  /* At the base 18px/40px-gap sizing, "Approach" wraps to its own row
+     instead of sitting beside "Specialty" and "Focus" on a 375px screen.
+     Items keep their natural, content-based width (not flex:1) so
+     space-between has real leftover space to distribute — the gap between
+     them grows with the screen instead of staying a fixed 12px. */
+  .services-meta {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .project-nav {
+    display: none;
+  }
+
+  /* Break out of .project-list's 275px cap (tuned for desktop's stacked
+     column) so the scroll track spans the full screen edge-to-edge. The
+     50%-50vw centering trick doesn't apply here — this sits inside a
+     narrow, left-aligned column, not a full-width centered one — so pull
+     it back by exactly the section's own side padding instead, which is
+     this element's real distance from the viewport edge. */
+  .project-names {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100vw;
+    margin-left: calc(-1 * var(--side-padding));
+    padding-left: var(--side-padding);
+    padding-right: var(--side-padding);
+    box-sizing: border-box;
+    overflow-x: auto;
+    /* Setting overflow-x alone makes browsers auto-promote overflow-y to
+       "auto" too (a lone non-visible axis isn't a valid combination per
+       spec), which let this capture vertical scroll/drag gestures — pin
+       it to hidden explicitly so only horizontal scrolling is possible. */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 12px;
+    font-size: 32px;
+  }
+
+  .project-names::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project-names li {
+    flex-shrink: 0;
+  }
+
+  .contact-main {
+    flex-direction: column;
+  }
+
+  /* In the markup, the heading comes after the lede/form (so it can sit to
+     their right on desktop) — reorder it visually only, so it reads as the
+     section's title above the copy on mobile. */
+  .contact-heading {
+    order: -1;
+  }
+
+  .project-case {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* At the smallest realistic phone width, the three labels' natural width
+   (even with the growing space-between gap) is just wide enough to wrap
+   "Approach" onto its own row — shrink the text a bit further here only. */
+@media (max-width: 340px) {
+  .services-meta {
+    font-size: 10px;
+    gap: 8px;
+  }
+}
