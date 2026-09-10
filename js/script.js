@@ -216,13 +216,38 @@ if (projectNameEls.length && projectImage) {
   });
 }
 
-// Basic form handling — replace with real form submission (e.g. Formspree, Netlify Forms) later.
+// Submits to Formspree via fetch instead of a full page reload/redirect, so
+// visitors get an inline confirmation without leaving the site.
 const contactForm = document.querySelector('.contact-form');
+const formStatus = document.querySelector('.form-status');
+const submitBtn = contactForm?.querySelector('.submit-btn');
 
-if (contactForm) {
-  contactForm.addEventListener('submit', (event) => {
+if (contactForm && formStatus && submitBtn) {
+  contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    alert("Thanks! This form isn't wired up to send messages yet — we'll connect it in a later step.");
-    contactForm.reset();
+
+    submitBtn.disabled = true;
+    formStatus.textContent = 'Sending...';
+    formStatus.classList.remove('is-error');
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' },
+      });
+
+      if (response.ok) {
+        formStatus.textContent = "Thanks! Your message has been sent — I'll get back to you soon.";
+        contactForm.reset();
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      formStatus.textContent = "Something went wrong — please email me directly at tetiana.yatsyshynets@gmail.com.";
+      formStatus.classList.add('is-error');
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 }
