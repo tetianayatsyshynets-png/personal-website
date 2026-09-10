@@ -821,6 +821,22 @@ main > section + section {
   color: var(--color-accent);
 }
 
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.form-status {
+  margin: 8px 0 0;
+  font-size: 16px;
+  color: var(--color-accent);
+  min-height: 1.3em;
+}
+
+.form-status.is-error {
+  color: #ff8a80;
+}
+
 .contact-heading {
   font-weight: 600;
   font-size: clamp(36px, 5vw, 80px);
@@ -879,6 +895,83 @@ main > section + section {
   height: calc(var(--graphic-text-h) * 1.1556);
   object-fit: cover;
   border-radius: 0;
+}
+
+/* =========================================
+   Policy pages (privacy, cookies, terms)
+   ========================================= */
+.policy {
+  padding-top: clamp(48px, 8vw, 96px);
+  padding-bottom: clamp(64px, 10vw, 120px);
+}
+
+.policy-title {
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.policy-updated {
+  margin: 16px 0 0;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.policy-content {
+  margin-top: clamp(40px, 6vw, 64px);
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+}
+
+.policy-content p {
+  color: var(--color-text-soft);
+  font-weight: 200;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.policy-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.policy-content h2 {
+  margin: clamp(40px, 5vw, 56px) 0 16px;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.policy-content h2:first-child {
+  margin-top: 0;
+}
+
+.policy-content h3 {
+  margin: 32px 0 12px;
+  color: var(--color-accent);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.policy-list {
+  margin: 0 0 20px;
+  padding-left: 20px;
+  color: var(--color-text-soft);
+  font-weight: 200;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.policy-list li {
+  margin-bottom: 8px;
 }
 
 /* =========================================
