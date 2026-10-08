@@ -1,3 +1,14 @@
+// The email address is assembled here instead of being written out in the
+// HTML, so bots that scrape pages for "name@domain" text don't find it. Any
+// element with data-email gets a working mailto: link; ones that also have
+// data-email-text show the address as their visible text.
+const contactEmail = ['tetiana.yatsyshynets', 'gmail.com'].join('@');
+
+document.querySelectorAll('[data-email]').forEach((el) => {
+  el.href = `mailto:${contactEmail}`;
+  if (el.hasAttribute('data-email-text')) el.textContent = contactEmail;
+});
+
 // Smooth scrolling (desktop/trackpad only — touch devices keep native
 // scroll, since it's already smooth and forcing custom easing onto it
 // tends to feel laggy and disconnected from the finger). Skipped entirely
@@ -244,7 +255,7 @@ if (contactForm && formStatus && submitBtn) {
         throw new Error('Form submission failed');
       }
     } catch (error) {
-      formStatus.textContent = "Something went wrong — please email me directly at tetiana.yatsyshynets@gmail.com.";
+      formStatus.textContent = `Something went wrong — please email me directly at ${contactEmail}.`;
       formStatus.classList.add('is-error');
     } finally {
       submitBtn.disabled = false;
